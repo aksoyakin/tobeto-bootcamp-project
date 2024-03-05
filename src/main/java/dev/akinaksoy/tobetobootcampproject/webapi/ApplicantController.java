@@ -17,7 +17,7 @@ public class ApplicantController extends BaseController{
     @PostMapping
     public ResponseEntity<?> createApplicant(
             @RequestBody @Valid CreateApplicantRequest request
-    ){
+    ) {
         return handleDataResult(applicantService.createApplicant(request));
     }
 
@@ -26,5 +26,12 @@ public class ApplicantController extends BaseController{
             @PathVariable int id
     ) {
         return handleDataResult(applicantService.getApplicantById(id));
+    }
+
+    @GetMapping("/get-all")
+    public ResponseEntity<?> gatAllApplicant(
+
+    ) {
+        return handleDataResult(applicantService.getAllApplicant());
     }
 }
