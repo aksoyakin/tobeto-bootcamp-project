@@ -6,6 +6,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateInstru
 import dev.akinaksoy.tobetobootcampproject.entities.Instructor;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,14 +17,14 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/instructors")
 @AllArgsConstructor
-public class InstructorController {
+public class InstructorController extends BaseController {
 
     private InstructorService instructorService;
 
     @PostMapping
-    public CreateInstructorResponse createInstructor(
+    public ResponseEntity<?> createInstructor(
             @RequestBody @Valid CreateInstructorRequest request
     ){
-        return instructorService.createInstructor(request);
+        return handleDataResult(instructorService.createInstructor(request));
     }
 }

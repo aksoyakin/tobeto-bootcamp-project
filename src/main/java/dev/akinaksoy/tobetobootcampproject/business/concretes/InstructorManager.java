@@ -4,6 +4,8 @@ import dev.akinaksoy.tobetobootcampproject.business.abstracts.InstructorService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateInstructorRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateInstructorResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.InstructorRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Instructor;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ public class InstructorManager implements InstructorService {
     private InstructorRepository instructorRepository;
     private ModelMapperService mapperService;
     @Override
-    public CreateInstructorResponse createInstructor(
+    public DataResult<CreateInstructorResponse> createInstructor(
             CreateInstructorRequest request
     ){
         Instructor instructor = mapperService.forRequest()
@@ -28,7 +30,11 @@ public class InstructorManager implements InstructorService {
 
         instructorRepository.save(instructor);
 
-        return mapperService.forResponse()
+        CreateInstructorResponse response = mapperService.forResponse()
                 .map(instructor, CreateInstructorResponse.class);
+
+        return new SuccessDataResult
+                <CreateInstructorResponse>
+                (response,"Instructor created successfully.");
     }
 }
