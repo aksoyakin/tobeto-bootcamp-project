@@ -2,7 +2,10 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicantService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicantRequest;
+import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateApplicantRequest;
+import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -41,5 +44,13 @@ public class ApplicantController extends BaseController{
             @RequestBody PageDto pageDto
     ) {
         return handleDataResult(applicantService.getAllSorted(pageDto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateApplicantById(
+            @RequestBody @Valid UpdateApplicantRequest request,
+            @PathVariable int id
+    ) {
+        return handleDataResult(applicantService.updateApplicantById(request, id));
     }
 }

@@ -2,9 +2,11 @@ package dev.akinaksoy.tobetobootcampproject.business.concretes;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicantService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicantRequest;
+import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateApplicantRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicantByIdResponse;
+import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -96,7 +98,37 @@ public class ApplicantManager implements ApplicantService {
 
         return new SuccessDataResult
                 <List<GetAllApplicantResponse>>
-                (response, "All Applicants Sorted");
+                (response, "All applicants sorted successfully.");
+    }
+
+    @Override
+    public DataResult<UpdateApplicantResponse> updateApplicantById(
+            UpdateApplicantRequest request,
+            int id
+    ) {
+        Applicant applicant = applicantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("There is no applicant with this ID."));
+
+        Applicant updatedApplicant = mapperService.forRequest()
+                .map(request,Applicant.class);
+
+        applicant.setId(id);
+        applicant.setUpdatedDate(LocalDateTime.now());
+
+        applicant.setFirstName(updatedApplicant.getFirstName() != null ? updatedApplicant.getFirstName() : applicant.getFirstName());
+        applicant.setLastName(updatedApplicant.getLastName() != null ? updatedApplicant.getLastName() : applicant.getLastName());
+        applicant.setAbout(updatedApplicant.getAbout() != null ? updatedApplicant.getAbout() : applicant.getAbout());
+        applicant.setUserName(updatedApplicant.getUserName() != null ? updatedApplicant.getUserName() : applicant.getUserName());
+        applicant.setNationalIdentity(updatedApplicant.getNationalIdentity() != null ? updatedApplicant.getNationalIdentity() : applicant.getNationalIdentity());
+        applicant.setDateOfBirth((updatedApplicant.getDateOfBirth() != null ? updatedApplicant.getDateOfBirth() : applicant.getDateOfBirth()));
+
+        applicantRepository.save(applicant);
+        UpdateApplicantResponse response = mapperService.forResponse().map(applicant, UpdateApplicantResponse.class);
+
+        return new SuccessDataResult
+                <UpdateApplicantResponse>
+                (response, "Applicant updated successfully.");
+
     }
 
 
