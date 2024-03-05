@@ -4,6 +4,8 @@ import dev.akinaksoy.tobetobootcampproject.business.abstracts.BlacklistService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateBlacklistRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateBlacklistResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.BlacklistRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Blacklist;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,7 @@ public class BlacklistManager implements BlacklistService {
     private ModelMapperService mapperService;
     private BlacklistRepository blacklistRepository;
     @Override
-    public CreateBlacklistResponse createBlacklist(
+    public DataResult<CreateBlacklistResponse> createBlacklist(
             CreateBlacklistRequest request
     ) {
         Blacklist blacklist = mapperService.forRequest()
@@ -27,7 +29,12 @@ public class BlacklistManager implements BlacklistService {
 
         blacklistRepository.save(blacklist);
 
-        return mapperService.forResponse()
+        CreateBlacklistResponse response = mapperService.forResponse()
                 .map(blacklist,CreateBlacklistResponse.class);
+
+        return new SuccessDataResult
+                <CreateBlacklistResponse>
+                (response,"Blacklist created successfully.");
+
     }
 }
