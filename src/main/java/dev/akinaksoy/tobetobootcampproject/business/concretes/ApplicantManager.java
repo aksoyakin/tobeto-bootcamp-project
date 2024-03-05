@@ -17,6 +17,7 @@ public class ApplicantManager implements ApplicantService {
     private ApplicantRepository applicantRepository;
     private ModelMapperService mapperService;
 
+    @Override
     public CreateApplicantResponse createApplicant(
             CreateApplicantRequest request
     ){
