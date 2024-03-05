@@ -3,6 +3,7 @@ package dev.akinaksoy.tobetobootcampproject.business.concretes;
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicantService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicantRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
+import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicantByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
@@ -11,6 +12,7 @@ import dev.akinaksoy.tobetobootcampproject.entities.Applicant;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
 import java.time.LocalDateTime;
 
 @Service
@@ -37,4 +39,21 @@ public class ApplicantManager implements ApplicantService {
                 <CreateApplicantResponse>
                 (response, "Applicant created successfully.");
     }
+
+    @Override
+    public DataResult<GetApplicantByIdResponse> getApplicantById(
+            int id
+    ) {
+        Applicant applicant = applicantRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("There is no applicant with this ID."));
+
+        GetApplicantByIdResponse response = mapperService.forResponse()
+                .map(applicant,GetApplicantByIdResponse.class);
+
+        return new SuccessDataResult
+                <GetApplicantByIdResponse>
+                (response,"Applicant listed successfully.");
+    }
+
+
 }
