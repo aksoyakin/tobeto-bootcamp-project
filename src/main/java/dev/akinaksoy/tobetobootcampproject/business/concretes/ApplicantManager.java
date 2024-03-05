@@ -33,6 +33,8 @@ public class ApplicantManager implements ApplicantService {
         CreateApplicantResponse response = mapperService.forResponse()
                 .map(applicant,CreateApplicantResponse.class);
 
-        return new SuccessDataResult<CreateApplicantResponse>(response, "Applicant created successfully.");
+        return new SuccessDataResult
+                <CreateApplicantResponse>
+                (response, "Applicant created successfully.");
     }
 }

@@ -5,6 +5,7 @@ import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplica
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicationResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,14 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/applications")
 @AllArgsConstructor
-public class ApplicationController {
+public class ApplicationController extends BaseController {
 
     private ApplicationService applicationService;
 
     @PostMapping
-    public CreateApplicationResponse createApplication(
+    public ResponseEntity<?> createApplication(
             @RequestBody @Valid CreateApplicationRequest request
     ){
-        return applicationService.createApplication(request);
+        return handleDataResult(applicationService.createApplication(request));
     }
 }

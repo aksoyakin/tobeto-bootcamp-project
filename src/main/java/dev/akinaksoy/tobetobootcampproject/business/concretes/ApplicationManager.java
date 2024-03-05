@@ -5,6 +5,8 @@ import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplica
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicationResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.ApplicationRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Application;
 import lombok.AllArgsConstructor;
@@ -19,7 +21,7 @@ public class ApplicationManager implements ApplicationService {
     private ModelMapperService mapperService;
 
     @Override
-    public CreateApplicationResponse createApplication(
+    public DataResult<CreateApplicationResponse> createApplication(
             CreateApplicationRequest request
     ) {
         Application application = mapperService.forRequest()
@@ -29,7 +31,12 @@ public class ApplicationManager implements ApplicationService {
 
         applicationRepository.save(application);
 
-        return mapperService.forResponse()
+        CreateApplicationResponse response = mapperService.forResponse()
                 .map(application, CreateApplicationResponse.class);
+
+        return new SuccessDataResult
+                <CreateApplicationResponse>
+                (response,"Application created successfully.");
+
     }
 }
