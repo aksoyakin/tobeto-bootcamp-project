@@ -16,7 +16,7 @@ import java.util.Date;
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.JOINED)
-public class User extends BaseEntity {
+public class User extends BaseEntity<Integer> {
 
     @Column(name = "userName")
     private String userName;
