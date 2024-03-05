@@ -6,11 +6,16 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplic
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicantByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.ApplicantRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Applicant;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
@@ -71,6 +76,27 @@ public class ApplicantManager implements ApplicantService {
         return new SuccessDataResult
                 <List<GetAllApplicantResponse>>
                 (response, "All applicants listed successfully.");
+    }
+
+    @Override
+    public DataResult<List<GetAllApplicantResponse>> getAllSorted(
+            PageDto pageDto
+    ) {
+        Sort sort = Sort.by(Sort.Direction.fromString
+                (pageDto.getSortDirection()), pageDto.getSortBy());
+
+        Pageable pageable = PageRequest.of
+                (pageDto.getPageNumber(), pageDto.getPageSize(), sort);
+
+        Page<Applicant> applicants = applicantRepository.findAll(pageable);
+
+        List <GetAllApplicantResponse> response = applicants.stream()
+                .map(applicant -> mapperService.forResponse()
+                .map(applicant, GetAllApplicantResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult
+                <List<GetAllApplicantResponse>>
+                (response, "All Applicants Sorted");
     }
 
 

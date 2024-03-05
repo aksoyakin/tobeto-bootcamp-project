@@ -4,6 +4,7 @@ import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplica
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicantByIdResponse;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 
 import java.util.List;
@@ -19,5 +20,9 @@ public interface ApplicantService {
 
     DataResult<List<GetAllApplicantResponse>> getAllApplicant(
 
+    );
+
+    DataResult<List<GetAllApplicantResponse>> getAllSorted(
+            PageDto pageDto
     );
 }

@@ -2,6 +2,7 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicantService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicantRequest;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -33,5 +34,12 @@ public class ApplicantController extends BaseController{
 
     ) {
         return handleDataResult(applicantService.getAllApplicant());
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllSorted(
+            @RequestBody PageDto pageDto
+    ) {
+        return handleDataResult(applicantService.getAllSorted(pageDto));
     }
 }
