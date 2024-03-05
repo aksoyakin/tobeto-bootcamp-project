@@ -4,6 +4,8 @@ import dev.akinaksoy.tobetobootcampproject.business.abstracts.BootcampStateServi
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateBootcampStateRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateBootcampStateResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.BootcampStateRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.BootcampState;
 import lombok.AllArgsConstructor;
@@ -17,7 +19,7 @@ public class BootcampStateManager implements BootcampStateService {
     private BootcampStateRepository bootcampStateRepository;
     private ModelMapperService mapperService;
     @Override
-    public CreateBootcampStateResponse createBootcampState(
+    public DataResult<CreateBootcampStateResponse> createBootcampState(
             CreateBootcampStateRequest request
     ) {
         BootcampState bootcampState = mapperService.forRequest()
@@ -27,7 +29,11 @@ public class BootcampStateManager implements BootcampStateService {
 
         bootcampStateRepository.save(bootcampState);
 
-        return mapperService.forResponse()
+        CreateBootcampStateResponse response = mapperService.forResponse()
                 .map(bootcampState, CreateBootcampStateResponse.class);
+
+        return new SuccessDataResult
+                <CreateBootcampStateResponse>
+                (response,"Bootcamp state created.");
     }
 }

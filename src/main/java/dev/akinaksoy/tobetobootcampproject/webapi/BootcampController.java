@@ -2,7 +2,6 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.BootcampService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateBootcampRequest;
-import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateBootcampResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;

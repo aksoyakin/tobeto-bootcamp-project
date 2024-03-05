@@ -2,7 +2,6 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicationService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicationRequest;
-import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicationResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
