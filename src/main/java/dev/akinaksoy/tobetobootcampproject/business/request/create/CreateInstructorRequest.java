@@ -10,8 +10,7 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateEmployeeCreateRequest {
-
+public class CreateInstructorRequest {
     @NotEmpty(message = "First name must not be empty!")
     @Size(min = 2, max = 50, message = "First name must be at least 2 characters!")
     private String firstName;
@@ -21,7 +20,7 @@ public class CreateEmployeeCreateRequest {
     private String lastName;
 
     @NotEmpty(message = "Email must not be empty!")
-    @Email(message = "Invalid email adress!")
+    @Email(message = "Invalid email address!")
     private String email;
 
     @NotEmpty(message = "Password must not be empty!")
@@ -41,8 +40,6 @@ public class CreateEmployeeCreateRequest {
     @PastOrPresent(message = "Date of birth must be in the past or present.")
     private Date dateOfBirth;
 
-    @NotEmpty(message = "Position must not be empty!")
-    private String position;
-
-
+    @NotEmpty(message = "Company name must not be empty!")
+    private String companyName;
 }
