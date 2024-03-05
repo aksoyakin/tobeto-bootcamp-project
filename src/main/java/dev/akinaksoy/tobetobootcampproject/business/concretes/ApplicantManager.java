@@ -4,6 +4,8 @@ import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicantService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicantRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.ApplicantRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Applicant;
 import lombok.AllArgsConstructor;
@@ -18,7 +20,7 @@ public class ApplicantManager implements ApplicantService {
     private ModelMapperService mapperService;
 
     @Override
-    public CreateApplicantResponse createApplicant(
+    public DataResult<CreateApplicantResponse> createApplicant(
             CreateApplicantRequest request
     ){
         Applicant applicant = mapperService.forRequest()
@@ -28,7 +30,9 @@ public class ApplicantManager implements ApplicantService {
 
         applicantRepository.save(applicant);
 
-        return mapperService.forResponse()
+        CreateApplicantResponse response = mapperService.forResponse()
                 .map(applicant,CreateApplicantResponse.class);
+
+        return new SuccessDataResult<CreateApplicantResponse>(response, "Applicant created successfully.");
     }
 }
