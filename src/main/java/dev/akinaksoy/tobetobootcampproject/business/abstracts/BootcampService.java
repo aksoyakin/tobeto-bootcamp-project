@@ -2,9 +2,10 @@ package dev.akinaksoy.tobetobootcampproject.business.abstracts;
 
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateBootcampRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateBootcampResponse;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 
 public interface BootcampService {
-    CreateBootcampResponse createBootcamp(
+    DataResult<CreateBootcampResponse> createBootcamp(
             CreateBootcampRequest request
     );
 }
