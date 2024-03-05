@@ -35,7 +35,7 @@ public class Bootcamp extends BaseEntity<Integer> {
     @JoinColumn(name = "bootcampStateId")
     private BootcampState bootcampState;
 
-    @OneToMany(mappedBy = "bootcamp", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "bootcamp")
     private List<Application> applications;
 
 }
