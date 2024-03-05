@@ -6,6 +6,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateEmploy
 import dev.akinaksoy.tobetobootcampproject.entities.Employee;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,13 +17,13 @@ import java.time.LocalDateTime;
 @RestController
 @RequestMapping("/api/employees")
 @AllArgsConstructor
-public class EmployeeController {
+public class EmployeeController extends BaseController {
     private EmployeeService employeeService;
 
     @PostMapping
-    public CreateEmployeeResponse createEmployee(
+    public ResponseEntity<?> createEmployee(
             @RequestBody @Valid CreateEmployeeCreateRequest request)
     {
-        return employeeService.createEmployee(request);
+        return handleDataResult(employeeService.createEmployee(request));
     }
 }
