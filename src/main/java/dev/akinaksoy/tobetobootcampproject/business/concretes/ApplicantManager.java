@@ -10,7 +10,9 @@ import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplic
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.Result;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.ApplicantRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Applicant;
 import lombok.AllArgsConstructor;
@@ -129,6 +131,15 @@ public class ApplicantManager implements ApplicantService {
                 <UpdateApplicantResponse>
                 (response, "Applicant updated successfully.");
 
+    }
+
+    @Override
+    public Result deleteApplicantById(
+            int id
+    ) {
+        applicantRepository.deleteById(id);
+        return new SuccessResult
+                ("Applicant deleted successfully");
     }
 
 

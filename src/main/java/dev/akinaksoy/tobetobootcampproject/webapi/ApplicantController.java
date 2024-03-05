@@ -6,6 +6,8 @@ import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateApplica
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.Result;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessResult;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -52,5 +54,12 @@ public class ApplicantController extends BaseController{
             @PathVariable int id
     ) {
         return handleDataResult(applicantService.updateApplicantById(request, id));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteApplicantById(
+            @PathVariable int id
+    ) {
+        return handleResult(applicantService.deleteApplicantById(id));
     }
 }
