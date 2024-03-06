@@ -9,6 +9,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicationB
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicationResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.Result;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public interface ApplicationService {
 
     DataResult<List<GetAllApplicationResponse>> getAllSorted(
             PageDto pageDto
+    );
+
+    Result deleteApplication(
+            int id
     );
 
 

@@ -29,6 +29,7 @@ public class ApplicationController extends BaseController {
     ){
         return handleDataResult(applicationService.getApplicationById(id));
     }
+
     @GetMapping("/get-all")
     public ResponseEntity<?> getAllApplication(
 
@@ -48,5 +49,12 @@ public class ApplicationController extends BaseController {
             @RequestBody PageDto pageDto)
     {
         return handleDataResult(applicationService.getAllSorted(pageDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteApplication(
+            @PathVariable int id
+    ){
+        return handleResult(applicationService.deleteApplication(id));
     }
 }

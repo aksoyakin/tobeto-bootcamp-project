@@ -11,7 +11,9 @@ import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplic
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.Result;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.ApplicationRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Application;
 import lombok.AllArgsConstructor;
@@ -28,6 +30,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class ApplicationManager implements ApplicationService {
+
     private ApplicationRepository applicationRepository;
     private ModelMapperService mapperService;
 
@@ -119,7 +122,13 @@ public class ApplicationManager implements ApplicationService {
                 (response, "All applications sorted successfully.");
     }
 
-
+    @Override
+    public Result deleteApplication(
+            int id
+    ) {
+        applicationRepository.deleteById(id);
+        return new SuccessResult("Application deleted successfully.");
+    }
 
 
 }
