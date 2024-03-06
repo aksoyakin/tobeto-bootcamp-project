@@ -2,13 +2,12 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicationStateService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicationStateRequest;
+import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateApplicationStateRequest;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/applicationstates")
@@ -23,4 +22,41 @@ public class ApplicationStateController extends BaseController{
     ){
         return handleDataResult(applicationStateService.createApplicationState(request));
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllApplicationStates(
+
+    ){
+        return handleDataResult(applicationStateService.getAllStates());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getApplicationStateById(
+            @PathVariable int id
+    ){
+        return handleDataResult(applicationStateService.getApplicationStateById(id));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateApplicationState(
+            @RequestBody @Valid UpdateApplicationStateRequest request
+    ){
+        return handleDataResult(applicationStateService.updateApplicationState(request));
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllApplicant
+            (@RequestBody PageDto pageDto)
+    {
+        return handleDataResult(applicationStateService.getAllSorted(pageDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteApplicantState(
+            @PathVariable int id)
+    {
+        return handleResult(applicationStateService.deleteApplicationState(id));
+    }
+
+
 }
