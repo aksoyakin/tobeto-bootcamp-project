@@ -9,11 +9,16 @@ import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicati
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicationByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicationResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.ApplicationRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Application;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -92,6 +97,29 @@ public class ApplicationManager implements ApplicationService {
                 <UpdateApplicationResponse>
                 (response, "Application updated successfully.");
     }
+
+    @Override
+    public DataResult<List<GetAllApplicationResponse>> getAllSorted(
+            PageDto pageDto
+    ) {
+        Sort sort = Sort.by(Sort.Direction.fromString
+                (pageDto.getSortDirection()), pageDto.getSortBy());
+
+        Pageable pageable = PageRequest.of
+                (pageDto.getPageNumber(), pageDto.getPageSize(), sort);
+
+        Page<Application> applications = applicationRepository.findAll(pageable);
+
+        List <GetAllApplicationResponse> response = applications.stream()
+                .map(application -> mapperService.forResponse()
+                .map(application, GetAllApplicationResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult
+                <List<GetAllApplicationResponse>>
+                (response, "All applications sorted successfully.");
+    }
+
+
 
 
 }
