@@ -2,10 +2,12 @@ package dev.akinaksoy.tobetobootcampproject.business.concretes;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicationService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicationRequest;
+import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateApplicationRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicationResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicationResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicationByIdResponse;
+import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicationResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
@@ -72,6 +74,23 @@ public class ApplicationManager implements ApplicationService {
         return new SuccessDataResult
                 <List<GetAllApplicationResponse>>
                 (response, "All applications listed successfully.");
+    }
+
+    @Override
+    public DataResult<UpdateApplicationResponse> updateApplication(
+            UpdateApplicationRequest request
+    ) {
+        Application application = mapperService.forRequest()
+                .map(request, Application.class);
+
+        Application updatedApplication = applicationRepository.save(application);
+
+        UpdateApplicationResponse response = mapperService.forResponse()
+                .map(updatedApplication, UpdateApplicationResponse.class);
+
+        return new SuccessDataResult
+                <UpdateApplicationResponse>
+                (response, "Application updated successfully.");
     }
 
 
