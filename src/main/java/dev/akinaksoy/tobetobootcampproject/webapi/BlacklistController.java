@@ -2,13 +2,12 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.BlacklistService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateBlacklistRequest;
+import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateBlacklistRequest;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -24,5 +23,42 @@ public class BlacklistController extends BaseController{
     ) {
         return handleDataResult(blacklistService.createBlacklist(request));
     }
+
+    @GetMapping
+    public ResponseEntity<?> getAllBlacklists(
+
+    ){
+        return handleDataResult(blacklistService.getAllBlacklist());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBlacklistById(
+            @PathVariable int id
+    ){
+        return handleDataResult(blacklistService.getBlacklistById(id));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateBlacklist(
+            @RequestBody @Valid UpdateBlacklistRequest request
+    ){
+        return handleDataResult(blacklistService.updateBlacklist(request));
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllBlacklists(
+            @RequestBody PageDto pageDto
+    ){
+        return handleDataResult(blacklistService.getAllSorted(pageDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBlacklist(
+            @PathVariable int id
+    ){
+        return handleResult(blacklistService.deleteBlacklist(id));
+    }
+
+
 
 }
