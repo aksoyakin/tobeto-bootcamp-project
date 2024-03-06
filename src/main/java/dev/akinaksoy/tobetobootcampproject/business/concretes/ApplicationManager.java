@@ -4,6 +4,7 @@ import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicationService
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicationRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicationResponse;
+import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicationByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
@@ -38,5 +39,20 @@ public class ApplicationManager implements ApplicationService {
                 <CreateApplicationResponse>
                 (response,"Application created successfully.");
 
+    }
+
+    @Override
+    public DataResult<GetApplicationByIdResponse> getApplicationById(
+            int id
+    ) {
+        Application application = applicationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("There is no application with this ID."));
+
+        GetApplicationByIdResponse response = mapperService.forResponse()
+                .map(application,GetApplicationByIdResponse.class);
+
+        return new SuccessDataResult
+                <GetApplicationByIdResponse>
+                (response,"Application listed successfully.");
     }
 }
