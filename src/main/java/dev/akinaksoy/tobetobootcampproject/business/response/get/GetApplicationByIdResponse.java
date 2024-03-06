@@ -1,0 +1,16 @@
+package dev.akinaksoy.tobetobootcampproject.business.response.get;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class GetApplicationByIdResponse {
+    private int id;
+    private String applicantAbout;
+    private int applicantId;
+    private int bootcampId;
+    private int applicationStateId;
+}

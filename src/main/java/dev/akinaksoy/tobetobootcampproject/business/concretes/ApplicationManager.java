@@ -4,6 +4,7 @@ import dev.akinaksoy.tobetobootcampproject.business.abstracts.ApplicationService
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplicationRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicationResponse;
+import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicationResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicationByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -14,6 +15,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -55,4 +58,21 @@ public class ApplicationManager implements ApplicationService {
                 <GetApplicationByIdResponse>
                 (response,"Application listed successfully.");
     }
+
+    @Override
+    public DataResult<List<GetAllApplicationResponse>> getAllApplication(
+
+    ) {
+        List <Application> applications = applicationRepository.findAll();
+
+        List <GetAllApplicationResponse> response = applications.stream()
+                .map(application -> mapperService.forResponse()
+                .map(application, GetAllApplicationResponse.class)).collect(Collectors.toList());
+
+        return new SuccessDataResult
+                <List<GetAllApplicationResponse>>
+                (response, "All applications listed successfully.");
+    }
+
+
 }

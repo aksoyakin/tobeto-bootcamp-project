@@ -1,0 +1,20 @@
+  version: "3.8"
+
+  services:
+     bootcampProjectDb:
+       container_name: bootcampdb
+       image: postgres
+       ports:
+         - "5433:5432"
+       environment:
+         POSTGRES_USER: admin
+         POSTGRES_PASSWORD: 12345
+
+     mongoDb:
+       container_name: mongoDb
+       image: mongo
+       ports:
+         - "27018:27017"
+       environment:
+         MONGO_INITDB_ROOT_USERNAME: admin
+         MONGO_INITDB_ROOT_PASSWORD: 12345

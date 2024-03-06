@@ -5,10 +5,7 @@ import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplica
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/applications")
@@ -22,5 +19,18 @@ public class ApplicationController extends BaseController {
             @RequestBody @Valid CreateApplicationRequest request
     ){
         return handleDataResult(applicationService.createApplication(request));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getApplicationById(
+            @PathVariable int id
+    ){
+        return handleDataResult(applicationService.getApplicationById(id));
+    }
+    @GetMapping("/get-all")
+    public ResponseEntity<?> getAllApplication(
+
+    ){
+        return handleDataResult(applicationService.getAllApplication());
     }
 }
