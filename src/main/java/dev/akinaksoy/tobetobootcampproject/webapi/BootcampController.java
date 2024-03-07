@@ -2,13 +2,12 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.BootcampService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateBootcampRequest;
+import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateBootcampRequest;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/bootcamps")
@@ -22,5 +21,40 @@ public class BootcampController extends BaseController {
             @RequestBody @Valid CreateBootcampRequest request
     ) {
         return handleDataResult(bootcampService.createBootcamp(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllBootcamp(
+
+    ){
+        return handleDataResult(bootcampService.getAllBootcamp());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getBootcampById(
+            @PathVariable int id
+    ){
+        return handleDataResult(bootcampService.getBootcampById(id));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateBootcamp(
+            @RequestBody @Valid UpdateBootcampRequest request
+    ){
+        return handleDataResult(bootcampService.updateBootcamp(request));
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllSorted(
+            @RequestBody PageDto pageDto
+    ){
+        return handleDataResult(bootcampService.getAllSorted(pageDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBootcamp(
+            @PathVariable int id
+    ){
+        return handleResult(bootcampService.deleteBootcamp(id));
     }
 }
