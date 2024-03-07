@@ -2,13 +2,12 @@ package dev.akinaksoy.tobetobootcampproject.webapi;
 
 import dev.akinaksoy.tobetobootcampproject.business.abstracts.InstructorService;
 import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateInstructorRequest;
+import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateInstructorRequest;
+import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -23,5 +22,41 @@ public class InstructorController extends BaseController {
             @RequestBody @Valid CreateInstructorRequest request
     ){
         return handleDataResult(instructorService.createInstructor(request));
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getAllInstructors(
+
+    ){
+        return handleDataResult(instructorService.getAllInstructor());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getInstructorById(
+            @PathVariable int id
+    ){
+        return handleDataResult(instructorService.getInstructor(id));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateInstructor(
+            @RequestBody @Valid UpdateInstructorRequest request,
+            @PathVariable int id
+    ){
+        return handleDataResult(instructorService.updateInstructorById(request, id));
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<?> getAllApplicant(
+            @RequestBody PageDto pageDto
+    ){
+        return handleDataResult(instructorService.getAllSorted(pageDto));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteInstructor(
+            @PathVariable int id
+    ){
+        return handleResult(instructorService.deleteInstructorById(id));
     }
 }
