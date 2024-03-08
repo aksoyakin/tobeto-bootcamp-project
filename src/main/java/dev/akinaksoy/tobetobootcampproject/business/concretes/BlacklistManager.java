@@ -7,6 +7,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateBlackl
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllBlackListResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetBlackListByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateBlacklistResponse;
+import dev.akinaksoy.tobetobootcampproject.core.aspects.logging.Loggable;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -34,6 +35,7 @@ public class BlacklistManager implements BlacklistService {
     private BlacklistRepository blacklistRepository;
 
     @Override
+    @Loggable
     public DataResult<CreateBlacklistResponse> createBlacklist(
             CreateBlacklistRequest request
     ) {

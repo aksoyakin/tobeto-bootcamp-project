@@ -10,6 +10,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.get.GetEmployeeById
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetEmployeeByPositionResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateEmployeeResponse;
 import dev.akinaksoy.tobetobootcampproject.business.rules.UserBusinessRules;
+import dev.akinaksoy.tobetobootcampproject.core.aspects.logging.Loggable;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -36,6 +37,7 @@ public class EmployeeManager implements EmployeeService {
     private ModelMapperService mapperService;
     private UserBusinessRules userBusinessRules;
     @Override
+    @Loggable
     public DataResult<CreateEmployeeResponse> createEmployee(
             CreateEmployeeCreateRequest request)
     {

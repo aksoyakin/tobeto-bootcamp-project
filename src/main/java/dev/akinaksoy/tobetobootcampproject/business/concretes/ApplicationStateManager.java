@@ -7,6 +7,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplic
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicationStateResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicationStateByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicationStateResponse;
+import dev.akinaksoy.tobetobootcampproject.core.aspects.logging.Loggable;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -34,6 +35,7 @@ public class ApplicationStateManager implements ApplicationStateService {
     private ModelMapperService mapperService;
 
     @Override
+    @Loggable
     public DataResult<CreateApplicationStateResponse> createApplicationState(
             CreateApplicationStateRequest request
     ) {

@@ -7,6 +7,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateBootca
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllBootcampResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetBootcampByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateBootcampResponse;
+import dev.akinaksoy.tobetobootcampproject.core.aspects.logging.Loggable;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -42,6 +43,7 @@ public class BootcampManager implements BootcampService {
 
 
     @Override
+    @Loggable
     public DataResult<CreateBootcampResponse> createBootcamp(
             CreateBootcampRequest request
     ) {

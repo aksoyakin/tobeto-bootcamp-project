@@ -8,6 +8,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllInstructo
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetInstructorByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateInstructorResponse;
 import dev.akinaksoy.tobetobootcampproject.business.rules.UserBusinessRules;
+import dev.akinaksoy.tobetobootcampproject.core.aspects.logging.Loggable;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -35,6 +36,7 @@ public class InstructorManager implements InstructorService {
     private ModelMapperService mapperService;
     private UserBusinessRules userBusinessRules;
     @Override
+    @Loggable
     public DataResult<CreateInstructorResponse> createInstructor(
             CreateInstructorRequest request
     ){
