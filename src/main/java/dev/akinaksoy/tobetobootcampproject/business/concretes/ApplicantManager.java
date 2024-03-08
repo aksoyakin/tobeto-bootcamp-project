@@ -8,6 +8,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicant
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicantByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.rules.UserBusinessRules;
+import dev.akinaksoy.tobetobootcampproject.core.aspects.logging.Loggable;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -35,6 +36,7 @@ public class ApplicantManager implements ApplicantService {
     private UserBusinessRules userBusinessRules;
 
     @Override
+    @Loggable
     public DataResult<CreateApplicantResponse> createApplicant(
             CreateApplicantRequest request
     ){
@@ -73,6 +75,7 @@ public class ApplicantManager implements ApplicantService {
     }
 
     @Override
+    @Loggable
     public DataResult<List<GetAllApplicantResponse>> getAllApplicant(
 
     ) {
