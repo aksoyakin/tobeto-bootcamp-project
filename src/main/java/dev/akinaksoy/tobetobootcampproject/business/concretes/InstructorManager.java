@@ -7,6 +7,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateInstru
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllInstructorResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetInstructorByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateInstructorResponse;
+import dev.akinaksoy.tobetobootcampproject.business.rules.UserBusinessRules;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -32,10 +33,15 @@ import java.util.stream.Collectors;
 public class InstructorManager implements InstructorService {
     private InstructorRepository instructorRepository;
     private ModelMapperService mapperService;
+    private UserBusinessRules userBusinessRules;
     @Override
     public DataResult<CreateInstructorResponse> createInstructor(
             CreateInstructorRequest request
     ){
+        userBusinessRules.checkIfEmailExist(request.getEmail());
+        userBusinessRules.checkIfUsernameExist(request.getUserName());
+        userBusinessRules.checkIfNationalIdentityExist(request.getNationalIdentity());
+
         Instructor instructor = mapperService.forRequest()
                 .map(request,Instructor.class);
 

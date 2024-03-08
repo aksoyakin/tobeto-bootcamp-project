@@ -14,7 +14,12 @@ import dev.akinaksoy.tobetobootcampproject.core.utilities.results.Result;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessDataResult;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.SuccessResult;
 import dev.akinaksoy.tobetobootcampproject.dataaaccess.BootcampRepository;
+import dev.akinaksoy.tobetobootcampproject.dataaaccess.BootcampStateRepository;
+import dev.akinaksoy.tobetobootcampproject.dataaaccess.InstructorRepository;
 import dev.akinaksoy.tobetobootcampproject.entities.Bootcamp;
+import dev.akinaksoy.tobetobootcampproject.entities.BootcampState;
+import dev.akinaksoy.tobetobootcampproject.entities.Instructor;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,10 +36,16 @@ import java.util.stream.Collectors;
 public class BootcampManager implements BootcampService {
     private BootcampRepository bootcampRepository;
     private ModelMapperService mapperService;
+
+    private BootcampStateRepository bootcampStateRepository;
+    private InstructorRepository instructorRepository;
+
+
     @Override
     public DataResult<CreateBootcampResponse> createBootcamp(
             CreateBootcampRequest request
     ) {
+
         Bootcamp bootcamp = mapperService.forRequest()
                 .map(request,Bootcamp.class);
 

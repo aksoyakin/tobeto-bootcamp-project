@@ -7,6 +7,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplic
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicantResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicantByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicantResponse;
+import dev.akinaksoy.tobetobootcampproject.business.rules.UserBusinessRules;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -31,11 +32,16 @@ import java.util.stream.Collectors;
 public class ApplicantManager implements ApplicantService {
     private ApplicantRepository applicantRepository;
     private ModelMapperService mapperService;
+    private UserBusinessRules userBusinessRules;
 
     @Override
     public DataResult<CreateApplicantResponse> createApplicant(
             CreateApplicantRequest request
     ){
+        userBusinessRules.checkIfEmailExist(request.getEmail());
+        userBusinessRules.checkIfUsernameExist(request.getUserName());
+        userBusinessRules.checkIfNationalIdentityExist(request.getNationalIdentity());
+
         Applicant applicant = mapperService.forRequest()
                 .map(request,Applicant.class);
 

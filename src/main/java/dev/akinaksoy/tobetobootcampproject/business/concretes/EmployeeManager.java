@@ -9,6 +9,7 @@ import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllEmployeeR
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetEmployeeByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetEmployeeByPositionResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateEmployeeResponse;
+import dev.akinaksoy.tobetobootcampproject.business.rules.UserBusinessRules;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.paging.PageDto;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.results.DataResult;
@@ -33,10 +34,15 @@ import java.util.stream.Collectors;
 public class EmployeeManager implements EmployeeService {
     private EmployeeRepository employeeRepository;
     private ModelMapperService mapperService;
+    private UserBusinessRules userBusinessRules;
     @Override
     public DataResult<CreateEmployeeResponse> createEmployee(
             CreateEmployeeCreateRequest request)
     {
+        userBusinessRules.checkIfEmailExist(request.getEmail());
+        userBusinessRules.checkIfUsernameExist(request.getUserName());
+        userBusinessRules.checkIfNationalIdentityExist(request.getNationalIdentity());
+
         Employee employee = mapperService.forRequest()
                 .map(request,Employee.class);
 

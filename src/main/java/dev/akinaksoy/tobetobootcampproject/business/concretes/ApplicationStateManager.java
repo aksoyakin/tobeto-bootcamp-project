@@ -5,7 +5,6 @@ import dev.akinaksoy.tobetobootcampproject.business.request.create.CreateApplica
 import dev.akinaksoy.tobetobootcampproject.business.request.update.UpdateApplicationStateRequest;
 import dev.akinaksoy.tobetobootcampproject.business.response.create.CreateApplicationStateResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetAllApplicationStateResponse;
-import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicantByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.get.GetApplicationStateByIdResponse;
 import dev.akinaksoy.tobetobootcampproject.business.response.update.UpdateApplicationStateResponse;
 import dev.akinaksoy.tobetobootcampproject.core.utilities.modelmapper.ModelMapperService;
@@ -124,6 +123,7 @@ public class ApplicationStateManager implements ApplicationStateService {
                 (response, "All application states sorted successfully.");
     }
 
+    // test et!
     @Override
     public Result deleteApplicationState(
             int id
