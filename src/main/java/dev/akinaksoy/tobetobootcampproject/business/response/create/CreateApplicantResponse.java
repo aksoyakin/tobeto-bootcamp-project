@@ -10,6 +10,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateApplicantResponse {
+    private int id;
     private String firstName;
 
     private String lastName;
